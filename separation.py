@@ -1,5 +1,6 @@
 #coding:utf-8
 
+import sys
 import numpy as np
 import wave
 import matplotlib.pyplot as plt
@@ -118,14 +119,15 @@ def write(data, fs, bit, channel, filename):
 
 
 if __name__ == "__main__":
-    wf = wave.open("wav_file/kaeru/kaeru.wav")
+    args = sys.argv
+    wf = wave.open(args[1])
     original_data = wf.readframes(wf.getnframes())
     original_data = np.frombuffer(original_data, dtype = "int16") / 32768.0
     fs = wf.getframerate()
     channel = wf.getnchannels()
     wf.close()
 
-    wf = wave.open("wav_file/trumpet.wav")
+    wf = wave.open(args[2])
     teacher_data = wf.readframes(wf.getnframes())
     teacher_data = np.frombuffer(teacher_data, dtype = "int16") / 32768.0
     wf.close()
