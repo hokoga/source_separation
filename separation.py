@@ -73,7 +73,7 @@ def PSNMF(Y, F, l, num_iter, mu):
     for i in tqdm(range(num_iter)):
         error.append(euclid_norm(Y, np.dot(F, G) + np.dot(H, U)))
 
-        H *= np.dot(Y, U.T) / (np.dot(np.dot(F, G) + np.dot(H, U), U.T) +  mu * np.dot(F, np.dot(F.T, H)) + eps)
+        H *= np.dot(Y, U.T) / (np.dot(np.dot(F, G) + np.dot(H, U), U.T) +  2 * mu * np.dot(F, np.dot(F.T, H)) + eps)
         H = normalize(H)
         U *= np.dot(H.T, Y) / (np.dot(H.T, np.dot(F, G) + np.dot(H, U)) + eps)
         G *= np.dot(F.T, Y) / (np.dot(F.T, np.dot(F, G) + np.dot(H, U)) + eps)
